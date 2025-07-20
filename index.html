@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Valorant Challenges</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Roboto+Condensed:wght@700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #1a1a1a, #0d0d0d); /* Subtle dark gradient */
+            color: #e0e0e0; /* Lighter text for contrast */
+            text-align: center;
+            padding: 20px;
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+        }
+        h1 {
+            font-family: 'Roboto Condensed', sans-serif; /* Techy font for title */
+            color: #ff4655; /* Valorant Red */
+            text-shadow: 0 0 15px rgba(255, 70, 85, 0.6), 0 0 5px rgba(255, 70, 85, 0.8); /* Glow effect */
+            letter-spacing: 2px;
+            margin-bottom: 25px;
+            font-size: 3em;
+            text-transform: uppercase;
+        }
+        .container {
+            max-width: 900px;
+            width: 100%;
+            margin: 0 auto;
+            background-color: #252525; /* Darker container background */
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.7); /* Stronger shadow */
+            border: 1px solid #333; /* Subtle border */
+        }
+        #name-placeholder {
+            font-size: 1.8em;
+            color: #ffd700; /* Gold */
+            background: linear-gradient(45deg, #3a3a3a, #4a4a4a); /* Gradient for placeholder */
+            padding: 12px 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            text-shadow: 0 0 8px rgba(255, 215, 0, 0.4);
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+        button {
+            background-color: #ff4655; /* Valorant Red */
+            color: #ffffff;
+            border: none;
+            padding: 12px 25px;
+            margin: 8px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 1.1em;
+            font-weight: bold;
+            letter-spacing: 0.5px;
+            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+        }
+        button:hover {
+            background-color: #e03e4a;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.6);
+        }
+        input[type="text"] {
+            padding: 12px;
+            margin: 15px;
+            border-radius: 6px;
+            background-color: #333333;
+            color: #e0e0e0;
+            border: 1px solid #555555;
+            font-size: 1em;
+            width: calc(100% - 30px); /* Adjust for padding/margin */
+            max-width: 300px;
+            box-sizing: border-box;
+        }
+        #current-challenge-section {
+            background-color: #2f2f2f; /* Slightly lighter than container */
+            padding: 25px;
+            margin-top: 30px;
+            border-radius: 10px;
+            border: 2px solid #ff4655; /* Highlight border */
+            box-shadow: 0 4px 20px rgba(255, 70, 85, 0.2); /* Soft red glow */
+        }
+        #current-challenge-section h2 {
+            font-family: 'Roboto Condensed', sans-serif;
+            color: #ffd700; /* Gold */
+            font-size: 1.6em;
+            margin-bottom: 15px;
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.4);
+            text-transform: uppercase;
+        }
+        #random-challenge {
+            font-size: 1.6em; /* Majestic font size */
+            font-weight: bold;
+            color: #e0e0e0; /* White for primary text */
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7); /* Stronger shadow */
+            margin-top: 10px;
+            min-height: 60px; /* Ensure space even when empty */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            line-height: 1.4;
+        }
+        /* Removed specific styling for strong and em inside #random-challenge */
+        #completed-challenges {
+            margin-top: 40px; /* More separation */
+            text-align: left;
+            background-color: #2f2f2f;
+            padding: 20px;
+            border-radius: 10px;
+            border-top: 1px solid #555555; /* A subtle separator */
+        }
+        #completed-challenges h2 {
+            color: #ff4655;
+            margin-bottom: 15px;
+            font-family: 'Roboto Condensed', sans-serif;
+            font-size: 1.4em;
+            text-transform: uppercase;
+        }
+        .completed-item {
+            margin: 8px 0;
+            font-size: 0.95em;
+            color: #c0c0c0;
+            border-bottom: 1px dashed #444;
+            padding-bottom: 5px;
+        }
+        .completed-item:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+        .completed-item strong {
+            color: #ffd700; /* Gold for completion name */
+        }
+        #god-king-message {
+            font-size: 2em;
+            color: #ffd700;
+            margin-top: 30px;
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.6);
+            font-weight: bold;
+            animation: pulse 1.5s infinite alternate; /* Subtle pulse animation */
+        }
+
+        @keyframes pulse {
+            from { transform: scale(1); opacity: 1; }
+            to { transform: scale(1.02); opacity: 0.9; }
+        }
+
+        .footer {
+            margin-top: 50px;
+            color: #555555;
+            font-size: 0.85em;
+            padding-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Valorant Challenges</h1>
+        <div id="name-placeholder"></div>
+        <div id="name-prompt">
+            <p>Enter your name to start the challenges:</p>
+            <input type="text" id="player-name" placeholder="Your Name">
+            <button onclick="startChallenges()">Start Challenges</button>
+        </div>
+        <div id="challenge-section" style="display: none;">
+            <p id="welcome-message"></p>
+            <button onclick="getRandomChallenge()">Get Random Challenge</button>
+            <button onclick="markChallengeComplete()">Mark Challenge Complete</button>
+            <button onclick="resetProgress()">Reset Progress</button>
+
+            <div id="current-challenge-section">
+                <h2>Current Challenge</h2>
+                <div id="random-challenge"></div>
+            </div>
+
+            <div id="god-king-message"></div>
+            <div id="completed-challenges">
+                <h2>Completed Challenges (<span id="completed-count">0</span>/100)</h2>
+                <div id="completed-list"></div>
+            </div>
+        </div>
+    </div>
+    <div class="footer">
+        Created By BetterOneYT
+    </div>
+
+    <script>
+        const challenges = [
+            { id: 1, category: "Kills", text: "Get 5 kills with a pistol in a single match.", completionName: "Pistol Pro" },
+            { id: 2, category: "Kills", text: "Achieve a 10-kill streak without dying.", completionName: "Streak Slayer" },
+            { id: 3, category: "Kills", text: "Get 3 kills in one round using only grenades (Paint Shells, Nanoswarm, Incendiary).", completionName: "Boom Baron" },
+            { id: 4, category: "Kills", text: "Eliminate 2 enemies with a single ultimate ability (e.g., Raze's Showstopper, Sova's Hunter's Fury).", completionName: "Ult Unleasher" },
+            { id: 5, category: "Kills", text: "Get 15 kills in a match using only SMGs (Stinger, Spectre).", completionName: "SMG Sovereign" },
+            { id: 6, category: "Kills", text: "Kill an enemy while you are blinded.", completionName: "Blind Butcher" },
+            { id: 7, category: "Kills", text: "Get a kill with every weapon type (Pistol, SMG, Shotgun, Rifle, Sniper, Heavy) in one match.", completionName: "Arsenal Ace" },
+            { id: 8, category: "Kills", text: "Get 3 kills while defending a planted spike.", completionName: "Spike Sentinel" },
+            { id: 9, category: "Kills", text: "Eliminate the entire enemy team in one round (Ace).", completionName: "Team Takedown" },
+            { id: 10, category: "Kills", text: "Get 5 kills in a match without using abilities.", completionName: "Raw Marksman" },
+            { id: 11, category: "Troll", text: "Fake defuse the spike 3 times in a match.", completionName: "Bait Bandit" },
+            { id: 12, category: "Troll", text: "Use only the Classic pistol for an entire match.", completionName: "Classic Clown" },
+            { id: 13, category: "Troll", text: "Emote after every kill you get in a match.", completionName: "Emote Emperor" },
+            { id: 14, category: "Troll", text: "Buy a Sheriff every round and give it to a teammate (if they don't have one).", completionName: "Sheriff Sharer" },
+            { id: 15, category: "Troll", text: "Type ‘EZ’ in all-chat after every round you win.", completionName: "Trash Talk Titan" },
+            { id: 16, category: "Headshots", text: "Get 5 headshot kills with a Vandal in one match.", completionName: "Vandal Visionary" },
+            { id: 17, category: "Headshots", text: "Get 3 headshot kills with a Phantom in one round.", completionName: "Phantom Phenom" },
+            { id: 18, category: "Headshots", text: "Kill an enemy with a headshot while they’re airborne.", completionName: "Sky Sniper" },
+            { id: 19, category: "Headshots", text: "Get 10 headshot kills in a match.", completionName: "Headshot Honcho" },
+            { id: 20, category: "Specific Guns", text: "Get 5 kills with a Shorty in one match.", completionName: "Shorty Shooter" },
+            { id: 21, category: "Kills", text: "Get 3 kills with a knife in one match.", completionName: "Blade Blazer" },
+            { id: 22, category: "Kills", text: "Kill an enemy while they’re planting the spike.", completionName: "Plant Punisher" },
+            { id: 23, category: "Kills", text: "Get 5 kills in a match using only heavy armor (Full Shields).", completionName: "Heavy Armor Hero" },
+            { id: 24, category: "Troll", text: "Play a match without buying armor.", completionName: "No-Armor Nut" },
+            { id: 25, category: "Troll", text: "Use only utility abilities (not guns) to get kills for one round.", completionName: "Utility Uprising" },
+            { id: 26, category: "Headshots", text: "Get a headshot kill with an Operator from long range (e.g., Ascent A Long to Catwalk).", completionName: "Operator Oracle" },
+            { id: 27, category: "Specific Guns", text: "Use only an Ares for an entire match.", completionName: "Ares Avenger" },
+            { id: 28, category: "Specific Guns", text: "Get 5 kills with an Outlaw in one match.", completionName: "Outlaw Overlord" },
+            { id: 29, category: "Agent-Specific", text: "Get a kill after sliding with Neon (High Gear).", completionName: "Neon Navigator" },
+            { id: 30, category: "Troll", text: "Ask enemies in all-chat to 1v1 you at mid.", completionName: "Midfield Maverick" },
+            { id: 31, category: "Map-Specific", text: "Get 3 kills on A site of Haven.", completionName: "Haven A Hero" },
+            { id: 32, category: "Headshots", text: "Get 5 headshot kills with a Sheriff.", completionName: "Sheriff Sniper" },
+            { id: 33, category: "Specific Guns", text: "Get 3 kills with a Bucky in one round.", completionName: "Bucky Brigand" },
+            { id: 34, category: "Troll", text: "Play a match with inverted mouse controls (if possible in settings).", completionName: "Invert Insurgent" },
+            { id: 35, category: "Agent-Specific", text: "Blind 3 enemies with Phoenix’s Curveball in a single round.", completionName: "Phoenix Flasher" },
+            { id: 36, category: "Agent-Specific", text: "Get a kill with Raze’s Showstopper rocket.", completionName: "Rocket Ruler" },
+            { id: 37, category: "Headshots", text: "Get 3 headshot kills with a Guardian.", completionName: "Guardian Gladiator" },
+            { id: 38, category: "Specific Guns", text: "Use only a Spectre for an entire match.", completionName: "Spectre Specialist" },
+            { id: 39, category: "Troll", text: "Drop the spike in an enemy’s line of sight and try to bait them.", completionName: "Spike Seducer" },
+            { id: 40, category: "Map-Specific", text: "Get a kill while wallbanging on Bind’s B long boxes.", completionName: "Bind Wallbang Wizard" },
+            { id: 41, category: "Agent-Specific", text: "Heal 500 HP with Sage in one match.", completionName: "Sage Savior" },
+            { id: 42, category: "Headshots", text: "Get a headshot kill with a Classic while jumping.", completionName: "Classic Crackshot" },
+            { id: 43, category: "Specific Guns", text: "Get 5 kills with a Marshal in one match.", completionName: "Marshal Maestro" },
+            { id: 44, category: "Troll", text: "Use only your knife to move (don't equip guns) for one entire round.", completionName: "Knife Nomad" },
+            { id: 45, category: "Kills", text: "Get 3 kills in a match while at 50 HP or less.", completionName: "Low HP Legend" },
+            { id: 46, category: "Agent-Specific", text: "Get a kill with Sova’s Shock Bolt.", completionName: "Sova Striker" },
+            { id: 47, category: "Headshots", text: "Get 5 headshot kills with a Bulldog.", completionName: "Bulldog Blaster" },
+            { id: 48, category: "Specific Guns", text: "Use only a Frenzy for an entire match.", completionName: "Frenzy Fiend" },
+            { id: 49, category: "Troll", text: "Play a match using only your keyboard for movement (no mouse movement).", completionName: "Keyboard King" },
+            { id: 50, category: "Agent-Specific", text: "Get a kill after teleporting with Omen (Shrouded Step or From the Shadows).", completionName: "Omen Outlaw" },
+            { id: 51, category: "Kills", text: "Get an Ace (5 kills) in a single round in Competitive.", completionName: "Competitive Ace" },
+            { id: 52, category: "Kills", text: "Get a kill with a full-auto Ghost.", completionName: "Ghost Sprayer" },
+            { id: 53, category: "Troll", text: "Only buy and drop a full shield for your teammates for 5 rounds.", completionName: "Shield Santa" },
+            { id: 54, category: "Headshots", text: "Get 2 headshot kills with a Judge in one round.", completionName: "Judge Justice" },
+            { id: 55, category: "Specific Guns", text: "Get 5 kills with the Odin in one match.", completionName: "Odin Overkill" },
+            { id: 56, category: "Agent-Specific", text: "Get a kill after dashing with Jett (Tailwind).", completionName: "Jett Dasher" },
+            { id: 57, category: "Map-Specific", text: "Plant the spike on B site of Ascent.", completionName: "Ascent B Planter" },
+            { id: 58, category: "Kills", text: "Get a kill while blind from a flashbang (yours or enemy).", completionName: "Flash Fighter" },
+            { id: 59, category: "Troll", text: "Never look at the scoreboard for an entire match.", completionName: "Ignorant Warrior" },
+            { id: 60, category: "Agent-Specific", text: "Get 3 kills while Reyna's Empress is active.", completionName: "Empress Eliminations" },
+            { id: 61, category: "Kills", text: "Get a kill while defusing the spike.", completionName: "Defuse Decimator" },
+            { id: 62, category: "Kills", text: "Get a kill with a perfectly accurate jump shot (no scope if sniper).", completionName: "Acrobatic Assassin" },
+            { id: 63, category: "Troll", text: "Try to steal your teammate's ace by getting the last kill.", completionName: "Ace Bandit" },
+            { id: 64, category: "Headshots", text: "Get a headshot with a Classic at maximum effective range.", completionName: "Classic Longshot" },
+            { id: 65, category: "Agent-Specific", text: "Block 100 damage with a Cypher Cyber Cage in one match.", completionName: "Cage Master" },
+            { id: 66, category: "Map-Specific", text: "Use a teleporter on Bind to flank and get a kill.", completionName: "Bind Flanker" },
+            { id: 67, category: "Kills", text: "Get a kill through a smoke cloud.", completionName: "Smoke Slayer" },
+            { id: 68, category: "Specific Guns", text: "Get 3 kills with a Stinger in one match.", completionName: "Stinger Stinger" },
+            { id: 69, category: "Troll", text: "Type 'GG EZ' in all-chat after losing a match (if you dare).", completionName: "Salty Spender" },
+            { id: 70, category: "Agent-Specific", text: "Get a kill with Killjoy's Nanoswarm.", completionName: "Nanoswarm Nuisance" },
+            { id: 71, category: "Kills", text: "Win a 1v3 clutch situation.", completionName: "Triple Clutch King" },
+            { id: 72, category: "Headshots", text: "Get 5 headshots with an Auto Sniper (Guardian/Bulldog).", completionName: "Auto Headhunter" },
+            { id: 73, category: "Map-Specific", text: "Break all breakable doors on Ascent in one match.", completionName: "Ascent Destroyer" },
+            { id: 74, category: "Troll", text: "Only walk (no running, no shifting) for an entire round.", completionName: "Slow Walker" },
+            { id: 75, category: "Agent-Specific", text: "Get a kill with Breach's Aftershock.", completionName: "Aftershock Ace" },
+            { id: 76, category: "Kills", text: "Get a kill while spectating your own dead body (via ultimate like Phoenix/Reyna).", completionName: "Spectral Slayer" },
+            { id: 77, category: "Specific Guns", text: "Get a kill with the melee attack of a heavy weapon (Odin/Ares).", completionName: "Heavy Puncher" },
+            { id: 78, category: "Troll", text: "Buy a full buy but only use your knife and abilities for a round.", completionName: "Rich Knifer" },
+            { id: 79, category: "Agent-Specific", text: "Get 3 kills while Viper's Pit is active.", completionName: "Viper's Reign" },
+            { id: 80, category: "Kills", text: "Get a kill with a perfect defuse (defuse while enemy is shooting you but you finish).", completionName: "Defuse Under Fire" },
+            { id: 81, category: "Map-Specific", text: "Get a kill through the wall at Heaven on Haven's C site.", completionName: "Haven C Wallbang" },
+            { id: 82, category: "Headshots", text: "Get a headshot kill with an uncharged Chamber Headhunter.", completionName: "Chamber Headshot" },
+            { id: 83, category: "Troll", text: "Try to plant the spike in the most ridiculous/exposed spot possible.", completionName: "Risky Planter" },
+            { id: 84, category: "Agent-Specific", text: "Blind 2 enemies with Yoru's Fakeout clone.", completionName: "Fakeout Flasher" },
+            { id: 85, category: "Kills", text: "Get a kill after teleporting with a Sova Drone.", completionName: "Drone Drop" },
+            { id: 86, category: "Specific Guns", text: "Get an Ace with the Guardian.", completionName: "Guardian Ace" },
+            { id: 87, category: "Troll", text: "Try to pick up all ultimate orbs on the map before anyone else.", completionName: "Orb Hoarder" },
+            { id: 88, category: "Agent-Specific", text: "Get a kill while Skye's Guiding Light hawk is still flying.", completionName: "Skye's Sniper" },
+            { id: 89, category: "Kills", text: "Win a round by killing all enemies without planting or defusing.", completionName: "Annihilation Victory" },
+            { id: 90, category: "Map-Specific", text: "Get a kill from ropes on Split.", completionName: "Split Rooftopper" },
+            { id: 91, category: "Headshots", text: "Get 3 headshots with a Shorty in one match.", completionName: "Shorty Snapshots" },
+            { id: 92, category: "Troll", text: "Buy an Operator every round and use only its scope to move.", completionName: "Scope Walker" },
+            { id: 93, category: "Agent-Specific", text: "Get 2 kills while Brimstone's Stim Beacon is active.", completionName: "Stim Stacker" },
+            { id: 94, category: "Kills", text: "Get a kill right after destroying enemy utility (e.g., Turret, Trapwire).", completionName: "Utility Breaker" },
+            { id: 95, category: "Specific Guns", text: "Get 5 kills using only the Ghost and Sheriff in a single match.", completionName: "Pistol Only Match" },
+            { id: 96, category: "Troll", text: "Only buy light shields and a Classic for an entire match.", completionName: "Eco Warrior" },
+            { id: 97, category: "Agent-Specific", text: "Use Astra's Cosmic Divide to block all enemy vision to a site and then plant.", completionName: "Cosmic Concealer" },
+            { id: 98, category: "Kills", text: "Get a kill with a full-auto Classic.", completionName: "Classic Spraydown" },
+            { id: 99, category: "Map-Specific", text: "Get a kill while on the zipline on Icebox.", completionName: "Icebox Zipper" },
+            { id: 100, category: "Troll", text: "Change your crosshair settings every round (if possible in game, or just visually in the range).", completionName: "Crosshair Changer" }
+        ];
+
+        const progressTitles = [
+            { count: 5, title: "Rookie Renegade 🔥", emoji: "🔥" },
+            { count: 10, title: "Aspiring Assassin ⚡", emoji: "⚡" },
+            { count: 15, title: "Tactical Trailblazer 💥", emoji: "💥" },
+            { count: 20, title: "Valorant Vanguard 🛡️", emoji: "🛡️" },
+            { count: 25, title: "Sharpshooter Supreme 🎯", emoji: "🎯" },
+            { count: 30, title: "Duelist Dynamo 💣", emoji: "💣" },
+            { count: 35, title: "Controller Conqueror 🌫️", emoji: "🌫️" },
+            { count: 40, title: "Sentinel Slayer 🛑", emoji: "🛑" },
+            { count: 45, title: "Initiator Icon ⚙️", emoji: "⚙️" },
+            { count: 50, title: "Radiant Rookie 🌟", emoji: "🌟" },
+            { count: 55, title: "Precision Prodigy 🔫", emoji: "🔫" },
+            { count: 60, title: "Headshot Hero 💀", emoji: "💀" },
+            { count: 65, title: "Troll Tactician 😈", emoji: "😈" },
+            { count: 70, title: "Weapon Wizard 🔮", emoji: "🔮" },
+            { count: 75, title: "Spike Specialist 💣", emoji: "💣" },
+            { count: 80, title: "Utility Master 🛠️", emoji: "🛠️" },
+            { count: 85, title: "Clutch Captain 🏆", emoji: "🏆" },
+            { count: 90, title: "Map Maestro 🗺️", emoji: "🗺️" },
+            { count: 95, title: "Team Titan 🤝", emoji: "🤝" },
+            { count: 100, title: "Valorant God-King 👑", emoji: "👑" }
+        ];
+
+        let currentChallenge = null;
+        let playerName = localStorage.getItem('playerName') || null;
+        let completedChallenges = JSON.parse(localStorage.getItem('completedChallenges')) || [];
+
+        // Show name prompt or challenges based on whether name is set
+        if (playerName) {
+            document.getElementById('name-prompt').style.display = 'none';
+            document.getElementById('challenge-section').style.display = 'flex'; // Use flex for centering
+            document.getElementById('challenge-section').style.flexDirection = 'column';
+            document.getElementById('welcome-message').innerHTML = `Take on the ${challenges.length} Valorant Challenges!`;
+            updateNamePlaceholder();
+            updateCompletedChallenges();
+            checkAllChallengesCompleted();
+        }
+
+        // Start challenges after name input
+        function startChallenges() {
+            const nameInput = document.getElementById('player-name').value.trim();
+            if (nameInput) {
+                playerName = nameInput;
+                try {
+                    localStorage.setItem('playerName', playerName);
+                } catch (e) {
+                    alert('Error saving name to local storage. Please ensure storage is enabled.');
+                }
+                document.getElementById('name-prompt').style.display = 'none';
+                document.getElementById('challenge-section').style.display = 'flex'; // Use flex for centering
+                document.getElementById('challenge-section').style.flexDirection = 'column';
+                document.getElementById('welcome-message').innerHTML = `Take on the ${challenges.length} Valorant Challenges!`;
+                updateNamePlaceholder();
+                updateCompletedChallenges();
+                checkAllChallengesCompleted();
+            } else {
+                alert('Please enter a name to start!');
+            }
+        }
+
+        // Update name placeholder with progress title and emoji
+        function updateNamePlaceholder() {
+            const completedCount = completedChallenges.length;
+            let currentTitle = { title: "Challenger", emoji: "🌟" }; // Default
+
+            // Find the highest progress title achieved
+            for (let i = progressTitles.length - 1; i >= 0; i--) {
+                if (completedCount >= progressTitles[i].count) {
+                    currentTitle = progressTitles[i];
+                    break;
+                }
+            }
+            document.getElementById('name-placeholder').innerHTML =
+                `${playerName}, ${currentTitle.title} ${currentTitle.emoji}`;
+        }
+
+        // Get a random challenge
+        function getRandomChallenge() {
+            const availableChallenges = challenges.filter(ch => !completedChallenges.includes(ch.id));
+            if (availableChallenges.length === 0) {
+                document.getElementById('random-challenge').innerHTML = `All challenges completed, ${playerName}! You are the Valorant God-King 👑!`;
+                return;
+            }
+            const randomIndex = Math.floor(Math.random() * availableChallenges.length);
+            currentChallenge = availableChallenges[randomIndex];
+            // Only display the text, not ID or category here
+            document.getElementById('random-challenge').innerHTML = currentChallenge.text;
+        }
+
+        // Mark current challenge as complete
+        function markChallengeComplete() {
+            if (currentChallenge && !completedChallenges.includes(currentChallenge.id)) {
+                completedChallenges.push(currentChallenge.id);
+                try {
+                    localStorage.setItem('completedChallenges', JSON.stringify(completedChallenges));
+                } catch (e) {
+                    alert('Error saving completed challenges to local storage. Please ensure storage is enabled.');
+                }
+                updateCompletedChallenges();
+                updateNamePlaceholder();
+                checkAllChallengesCompleted();
+                // Display confirmation, then get new challenge
+                document.getElementById('random-challenge').innerHTML = `Challenge "${currentChallenge.text}" marked as complete! Getting a new challenge...`;
+                setTimeout(getRandomChallenge, 1500); // Get a new challenge after a short delay
+            } else if (!currentChallenge) {
+                alert('Please get a challenge first!');
+            } else {
+                alert('This challenge is already completed!');
+            }
+        }
+
+        // Update the completed challenges list
+        function updateCompletedChallenges() {
+            const completedList = document.getElementById('completed-list');
+            completedList.innerHTML = '';
+            // Sort completed challenges by ID for a consistent list
+            const sortedCompleted = completedChallenges.slice().sort((a, b) => a - b);
+            sortedCompleted.forEach(id => {
+                const challenge = challenges.find(ch => ch.id === id);
+                if (challenge) {
+                    const div = document.createElement('div');
+                    div.className = 'completed-item';
+                    div.innerHTML = `<strong>${challenge.completionName}</strong>: ${challenge.text} <em>(${challenge.category})</em>`;
+                    completedList.appendChild(div);
+                }
+            });
+            document.getElementById('completed-count').textContent = completedChallenges.length;
+        }
+
+        // Check if all challenges are completed
+        function checkAllChallengesCompleted() {
+            if (completedChallenges.length === challenges.length) {
+                document.getElementById('god-king-message').innerHTML =
+                    `Congratulations, ${playerName}! You have conquered all ${challenges.length} challenges and are now the Valorant God-King 👑!`;
+                document.getElementById('random-challenge').innerHTML = ''; // Clear current challenge
+                updateNamePlaceholder();
+            } else {
+                document.getElementById('god-king-message').innerHTML = '';
+            }
+        }
+
+        // Reset all progress
+        function resetProgress() {
+            if (confirm("Are you sure you want to reset all your Valorant Challenge progress? This cannot be undone.")) {
+                try {
+                    localStorage.removeItem('playerName');
+                    localStorage.removeItem('completedChallenges');
+                } catch (e) {
+                    alert('Error resetting local storage. You might need to clear your browser data manually.');
+                }
+                playerName = null;
+                completedChallenges = [];
+                location.reload(); // Reload the page to reset everything
+            }
+        }
+    </script>
+</body>
+</html>
